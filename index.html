@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+<title>Tikslus carousel examples</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/rainbow.min.js"></script>
+<link rel="stylesheet" href="css/normalize.css" />
+<link rel="stylesheet" href="css/github.css" />
+<style>
+body{
+padding:20px;
+}
+#wrapper{
+margin:auto;
+width:80%;
+}
+a{
+text-decoration:none;
+color: cornflowerblue;
+}
+a:hover{
+text-decoration:underline;
+}
+
+#author_info{
+margin:auto;width:80%;margin-top:20px;margin-bottom:20px;
+}
+
+#author_info td.info{
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+border-right: 1px solid #ddd;
+padding: 10px;
+}
+#author_info td.text{
+border-top: 1px solid #ddd;
+border-bottom: 1px solid #ddd;
+padding: 10px;
+}
+
+.tbl_parameters{
+
+}
+
+.tbl_parameters td{
+border:1px solid #ddd;
+padding:10px;
+}
+.tbl_parameters th{
+background-color:#000;
+color:#fff;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<h1 class="main_heading">Tikslus Carousel [ <a href="examples.html"> Click here to view DEMO</a> ]</h1>
+	
+			<table id="author_info" style="">
+		<tr>
+		<td class='info'><label><b>Created:04/28/2014</b></label>
+		<label><b>By:Pushpendra Singh Chouhan</b></label>
+		<label><b>Email: pushpendra.as400@gmail.com</b></label>
+		</td>
+		<td class='text'>
+		<p>
+		Thank you for purchasing <b><a href="http://tikslus.com/tiksluscarousel/demo">Tikslus Carousel</a></b>. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/tikslusbhopal">here</a>. Thanks so much!
+		</p>
+		</td>
+		</tr>
+		</table>
+		
+		<p>Tikslus Carousel was created to be responsive.It Can be view full page or you can provide a specific Width and Height for the plugin.</p>
+		<br/>
+		<h4 class="heading">Getting started with Tikslus Carousel is easy and staright forward</h4>
+		
+		<table cellpadding="10" cellspacing="10" >
+		<tr>
+		<td>
+		<p class="medium_heading">Download and Unzip:</p>
+		<ul class="ulnone">
+		<li>
+		Unzip the contents of the Zipped file you have downloaded from codecanyon.net.
+		</li>
+		<li>
+		place tiksluscarousel.css and animate.css files in the directory where you have kept your other css files. (for example: in CSS folder)
+		</li>
+		<li>
+		Place tiksluscarousel.min.js and jquery.min.js in your JS library.
+		</li>
+		</ul>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<p class="medium_heading">Installation:</p>
+		<p>
+		Installing Tikslus Carousel is very easy and straight-forward. Simply add the following link and scripts tags with your proper paths and paste the following code within the Head tags of your HTML document.
+		</p>
+		<pre><code data-language="html">
+<link href="/css/tiksluscarousel.min.css" rel="stylesheet">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/tiksluscarousel.min.js"></script>
+		</code>
+		</pre>
+	
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<p class="medium_heading">How to use plugin ?</p>
+		<p>Using Tiksluscarousel is easy.After including carousel css and js files. Inside a DIV element create an unordered list of images you want to use in carousel.</p>
+		<p class="medium_heading">HTML markup</p>
+		<pre>
+		<code data-language="html">
+		<div id="carousel1">
+		
+		<ul>
+		<li><img src="images/img1.jpg" /></li>
+		<li><img src="images/img2.jpg" /></li>
+		<li><img src="images/img3.jpg" /></li>
+		<li><img src="images/img4.jpg" /></li>
+		<li><img src="images/img5.jpg" /></li>
+		</ul>
+		
+		</div>
+		</code>
+		</pre>
+		<p class="note">Make sure you have the same (width and height) for all images</p>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<p class="medium_heading">Activate using Jquery selector</p>
+		<p>Using Jquery selectory inside $(document).ready()  or $(window).load() to activate carousel.</p>
+		<pre>
+		<code data-language="javascript">
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel1").tiksluscarousel();  //called with all default values
+		});
+		</script>
+		</code>
+		</pre>
+		</td>
+		</tr>
+		
+		
+		</table>
+		
+		
+		
+		<table  class="tbl_parameters" width="100%" class="table">
+		<tr>
+		<th>Parameter</th><th>Default value</th><th>Allowed Value</th><th>Description</th>
+		</tr>
+		<tr>
+		<td>current</td><td>1</td><td>Any number (>0)  not greater than total images in the carousel</td><td>You can specify from which item the carousel should start</td>
+		</tr>
+		
+		<tr>
+		<td>prev</td><td>"&laquo;" <pre><code data-language="html">laquo</code></pre></td><td>HTML code to specify Previous button</td><td>Defines Previous button on the carousel</td>
+		</tr>
+		
+		<tr>
+		<td>next</td><td>"&raquo;" <pre><code data-language="html">raquo</code></pre></td><td>HTML code to specify Next button</td><td>Defines Next button on the carousel</td>
+		</tr>
+		
+		<tr>
+		<td>type</td><td>slide</td><td>slide,rotate or custom</td><td>
+		<ul>
+		<li>
+		<label>slide:</label> 
+		<p>It allows images to slide from right to left horizontally in the carousel</p>
+		</li>
+		
+		<li>
+		<label>rotate:</label> 
+		<p>fades out one image at a time in the carousel</p>
+		</li>
+		
+		<li>
+		<label>custom:</label> 
+		<p>This option allows you to specify CSS3 transistion effects for animating images. We have provided <i>animate.css</i> with this package. You can create your own CSS3 transition classes and use them</p>
+		</li>
+		
+		
+		</ul>
+		
+		</td>
+		</tr>
+		
+		<tr>
+		<td>autoplayInterval</td><td>7000 (7 seconds)</td><td>value in milliseconds</td><td><p>Carousel can auto-scroll. This is enabled by specifying a millisecond value to this option. The value you specify is the amount of time between 2 consecutive slides.</p></td>
+		</tr>
+		
+		<tr>
+		<td>animationInterval</td><td>800</td><td>value in milliseconds</td><td>defines sliding speed of your carousel. Higher the value slower is the sliding effect. </td>
+		</tr>
+		
+		
+		<tr>
+		<td>dotRatio</td><td>0.02</td><td>Always in percentage. 2% by default</td><td>defines the width and height of dots. It is specified as percentage values to make it reponsive.</td>
+		</tr>
+		
+		
+		<tr>
+		<td>loader</td><td>ajax-loader.gif</td><td>ajax loader gif image (can be specified with full path) </td><td>Ajax loader gif image to be shown during image pre loading.</td>
+		</tr>
+		
+		
+		<tr>
+		<td>customAnimationClassIn</td><td>null</td><td>CSS3 class name</td><td>Specifies the name of CSS3 class which defines the entrace effect. To use this option you must set type parameter to custom. example:
+<pre>
+		<code data-language="html">
+		
+		type:'custom',
+		customAnimationClassIn:'bounceIn'
+		</code>
+		</pre>
+		</td>
+		</tr>
+		
+		
+				<tr>
+		<td>customAnimationClassOut</td><td>null</td><td>CSS3 class name</td><td>Specifies the name of CSS3 class which defines the exit effect. To use this option you must set type parameter to custom. example:
+<pre>
+		<code data-language="html">
+		
+		type:'custom',
+		customAnimationClassOut:'bounceOut'
+		</code>
+		</pre>
+		</td>
+		</tr>
+		
+		
+		
+		<tr>
+		<td>customAnimationCaption</td><td>null</td><td>CSS3 class name</td><td>If this option is set as NULL. Captions will slide in.</td>
+		</tr>
+		
+		
+		<tr>
+		<td>captionAnimationInterval</td><td>100</td><td>value in milliseconds</td><td>Speed of caption animation</td>
+		</tr>
+		
+			<tr>
+		<td>captionFontRatio</td><td>0.15</td><td>value between 0.1 to 1</td><td>font size of text used in captions.</td>
+		</tr>
+		
+			<tr>
+		<td>width</td><td>0</td><td>width of image. (without specifying any unit)</td><td>Defines the width of the images used in carousel. If set to 0 carousel will take Parent wrappers width or body tag width</td>
+		</tr>
+		
+			<tr>
+		<td>height</td><td>0</td><td>Height of image. (without specifying any unit)</td><td>Defines the Height of the images used in carousel. If set to 0 carousel will take Parent wrappers Height or body tag Height</td>
+		</tr>
+		
+		
+		
+		</table>
+		
+		
+		</div>
+
+
+</body>
+</html>

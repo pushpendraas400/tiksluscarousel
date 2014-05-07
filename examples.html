@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+<title>Tikslus carousel examples</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/tiksluscarousel.js"></script>
+<script type="text/javascript" src="js/rainbow.min.js"></script>
+<link rel="stylesheet" href="css/normalize.css" />
+<link rel="stylesheet" href="css/tiksluscarousel.css" />
+<link rel="stylesheet" href="css/github.css" />
+<link rel="stylesheet" href="css/animate.css" />
+<style>
+body{
+padding:20px;
+}
+#wrapper{
+margin:auto;
+width:80%;
+}
+a{
+text-decoration:none;
+color: cornflowerblue;
+}
+a:hover{
+text-decoration:underline;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<h4 class="heading">Example 1 - custom width and height</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example1">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example1").tiksluscarouse({width:640,height:480});
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel1">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel1").tiksluscarousel({width:640,height:480});
+		});
+		</script>
+
+		
+		
+		
+		<h4 class="heading">Example 2 - CSS3 animation using animate.css</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example2">
+		<ul>
+	<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example2").tiksluscarouse({width:640,height:480,customAnimationClassIn:'bounceIn',customAnimationClassOut:'bounceOut',type:'custom'});
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel2">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel2").tiksluscarousel({width:640,height:480,customAnimationClassIn:'bounceIn',customAnimationClassOut:'bounceOut',type:'custom'});
+		});
+		</script>
+
+		
+		
+				
+		<h4 class="heading">Example 3 - Adding Captions</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example3">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>		</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example3").tiksluscarouse({width:640,height:480});
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel3">
+		<ul>
+<li><img src="images/disney1.jpg" caption="The Walt Disney Cartoon Picture Birds With Flying Elephant and enjoy the flying" /></li>
+		<li><img src="images/disney2.jpg" caption="The Walt Disney Cartoon Elephant Landing in the village." /></li>
+		<li><img src="images/disney3.jpg" caption="The Walt Disney Cartoon Elephant and Mouse Playing with bubbles."  /></li>
+		<li><img src="images/disney4.jpg" caption="The Walt Disney Cartoon Donald Duck at Daisy home."  /></li>
+		<li><img src="images/disney5.jpg"  caption="The Walt Disney Cartoon Micky Mouse and Pluto."/></li>
+		<li><img src="images/disney6.jpg" caption="The Walt Disney Cartoon Micky, Minny and Guffy."  /></li>
+
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel3").tiksluscarousel({width:640,height:480});
+		});
+		</script>
+		
+		
+				<h4 class="heading">Example 4 - Rotating images</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example4">
+		<ul>
+		<li><img src="images/s1.jpg" /></li>
+		<li><img src="images/s2.jpg" /></li>
+		<li><img src="images/s3.jpg" /></li>
+		<li><img src="images/s4.jpg" /></li>
+		<li><img src="images/s5.jpg" /></li>
+		<li><img src="images/s6.jpg" /></li>
+		</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example4").tiksluscarouse({width:259,height:194,type:'rotate'});
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel4">
+		<ul>
+
+			<li><img src="images/s1.jpg" /></li>
+		<li><img src="images/s2.jpg" /></li>
+		<li><img src="images/s3.jpg" /></li>
+		<li><img src="images/s4" /></li>
+		<li><img src="images/s5.jpg" /></li>
+		<li><img src="images/s6.jpg" /></li>
+		
+
+
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel4").tiksluscarousel({width:259,height:194,type:'rotate'});
+		});
+		</script>
+		
+		
+		
+						
+		<h4 class="heading">Example 5 - Animating Captions</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example5">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>	</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example5").tiksluscarouse({width:640,height:480,customAnimationCaption:'bounceIn'});
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel5">
+		<ul>
+<li><img src="images/disney1.jpg" caption="The Walt Disney Cartoon Picture Birds With Flying Elephant and enjoy the flying" /></li>
+		<li><img src="images/disney2.jpg" caption="The Walt Disney Cartoon Elephant Landing in the village." /></li>
+		<li><img src="images/disney3.jpg" caption="The Walt Disney Cartoon Elephant and Mouse Playing with bubbles."  /></li>
+		<li><img src="images/disney4.jpg" caption="The Walt Disney Cartoon Donald Duck at Daisy home."  /></li>
+		<li><img src="images/disney5.jpg"  caption="The Walt Disney Cartoon Micky Mouse and Pluto."/></li>
+		<li><img src="images/disney6.jpg" caption="The Walt Disney Cartoon Micky, Minny and Guffy."  /></li>
+
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel5").tiksluscarousel({width:640,height:480,customAnimationCaption:'bounceIn'});
+		});
+		</script>
+		
+		
+		
+				<h4 class="heading">Example 6 - full screen (do not specify width and height)</h4>
+		<p>HTML</p>
+			<PRE>
+		<code data-language="html">
+		
+		<div id="example6">
+		<ul>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>	</ul>
+		</div>
+		</code>
+		</PRE>
+		
+		<p>Javascript</p>
+		<pre>
+		<code data-language="javascript">
+		
+		$(document).ready(function(){
+		$("#example6").tiksluscarouse();
+		});
+	
+		</code>
+		</pre>
+		
+		<!--code implementation -->
+		<div id="carousel6">
+		<ul>
+<li><img src="images/disney1.jpg" caption="The Walt Disney Cartoon Picture Birds With Flying Elephant and enjoy the flying" /></li>
+		<li><img src="images/disney2.jpg" caption="The Walt Disney Cartoon Elephant Landing in the village." /></li>
+		<li><img src="images/disney3.jpg" caption="The Walt Disney Cartoon Elephant and Mouse Playing with bubbles."  /></li>
+		<li><img src="images/disney4.jpg" caption="The Walt Disney Cartoon Donald Duck at Daisy home."  /></li>
+		<li><img src="images/disney5.jpg"  caption="The Walt Disney Cartoon Micky Mouse and Pluto."/></li>
+		<li><img src="images/disney6.jpg" caption="The Walt Disney Cartoon Micky, Minny and Guffy."  /></li>
+
+		</ul>
+		</div>
+		
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#carousel6").tiksluscarousel();
+		});
+		</script>
+		
+</div>
+
+
+</body>
+
+
+
+
+</html>
