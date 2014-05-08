@@ -1,0 +1,39 @@
+{
+  "name": "TikslusCarousel",
+  "title": "Tikslus Carousel fully responsive carousel",
+  "version": "1.0.0",
+  "description": "A fully responsive jquery carsousel and rotater with css3 animations.",
+  "homepage": "http://tikslus.com/plugins/free#tiksluscarousel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pushpendra10/tiksluscarousel.git"
+  },
+  "keywords": [
+    "full responsive",
+    "jQuery",
+    "Mobile",
+    "carousel",
+    "javascript",
+    "slider",
+    "css3 animation",
+    "image rotater",
+    "banner rotater"
+  ],
+  "author": {
+    "name": "Pushpendra Singh Chouhan",
+    "email": "pushpendra.as400@gmail.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/pushpendra10/tiksluscarousel/blob/master/MIT-LICENSE.txt"
+    }
+  ],
+  "bugs": "https://github.com/pushpendra10/tiksluscarousel/issues",
+  "download": "http://tikslus.com/web/bundles/tikslustikslus/downloads/tiksluscarousel.zip",
+  "demo" : "http://tikslus.com/tiksluscarousel/demo",
+  "docs" : "http://tikslus.com/tiksluscarousel/docs",
+  "dependencies": {
+    "jquery": ">=1.5"
+  }
+}
