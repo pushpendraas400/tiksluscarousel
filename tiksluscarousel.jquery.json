@@ -1,5 +1,5 @@
 {
-  "name": "TikslusCarousel",
+  "name": "tiksluscarousel",
   "title": "Tikslus Carousel fully responsive carousel",
   "version": "1.0.0",
   "description": "A fully responsive jquery carsousel and rotater with css3 animations.",
@@ -9,15 +9,17 @@
     "url": "https://github.com/pushpendra10/tiksluscarousel.git"
   },
   "keywords": [
-    "full responsive",
+    "responsive",
     "jQuery",
     "Mobile",
     "carousel",
     "javascript",
     "slider",
-    "css3 animation",
-    "image rotater",
-    "banner rotater"
+    "css3",
+	"animation",
+    "image",
+	"rotater",
+    "banner"
   ],
   "author": {
     "name": "Pushpendra Singh Chouhan",
