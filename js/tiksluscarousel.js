@@ -456,7 +456,6 @@ wrapper.scrollLeft(left);
 var navIcons=function(){
 var nav_left=carousel.find(".nav_left");
 var nav_right=carousel.find(".nav_right");
-console.log(options.current);
 if(options.current<=1){ ;nav_left.hide();}else{nav_left.show();}
 if(options.current>=count){nav_right.hide();}else{nav_right.show();}
 if(options.navIcons==true){
