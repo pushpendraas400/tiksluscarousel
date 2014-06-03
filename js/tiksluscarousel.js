@@ -1,11 +1,21 @@
 /* tikslus carousel (a fully resposive carousel) by Pushpendra Singh Chouhan : pushpendra.as400@gmail.com
-version: 1.0.0
+version: 2.0.0 
+version 2 release date: 3 june 2014
 http://tikslus.com
+New Features in version 2.0
+1. Thumbnails view 
+2. Full Screen option (button gets visible on hover)
+3. Added new effect: zoom
+4. Added NavIcons
+5. Added a  progress bar 
+6. Added button to pause and resume slideshow (button gets visible on hover)
+7. Shows current slide number (visible on hover)
 */
 (function($){
    var TikslusCaraousel = function(element, options)
    {
         var carousel = $(element);
+	//	var animating=false; //used in zoom effect
 		var obj=this;
 		var defaults = {
   
@@ -14,8 +24,8 @@ http://tikslus.com
                 prev: "&laquo;",
                
                 next: "&raquo;",
-                type: 'slide', // can rotate,slide,custom
-                autoplayInterval: 7000,
+                  type: 'slide', // can rotate,slide and zoom (zoom is new in version 2.0)
+                autoplayInterval: 10000,
                 animationInterval: 800,
                 dotRatio: 0.02, //always in percentage a whole number 2% by default
                 loader:'ajax-loader.gif',
@@ -25,7 +35,10 @@ http://tikslus.com
                 captionAnimationInterval: 100,
 				captionFontRatio:0.15,//always in percentage a whole number 15% by default
 				width:0,
-				height:0
+				height:0,
+				nav:'dots', //can be dots or thumbnails (thumbnails new in version 2.0)
+				navIcons:true // new in version 2.0
+							
             };
            
 // Extend our default options with those provided.
@@ -35,16 +48,26 @@ http://tikslus.com
  var current=options.current;
 var count=carousel.find("li").length;
 var slider_nav;
+var thumb_wt;
+var paused=false;
+var arr=['slide','rotate','zoom','dots','thumbnails'];
 var autoPlayHandler;
-var ul = carousel.find("ul");
+carousel.find("ul").addClass("carousel");
+var ul = carousel.find("ul.carousel");
+ul.find("img").addClass("tslider");
+var wrapper_wt=ul.find("li:first").width();
 
 ul.hide(); //hide all li's until all images are loaded
 carousel.append("<p class='preload'><img src='"+options.loader+"' border=0/>Loading Images</p>"); //create loader image
 
 carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgroudColor:'#fff',textAlign:"center",color:'#000',padding:'0.5em'}).show();
 
+
+
+
             var addCaptions = function() {
-                var li = carousel.find("ul").find("li");
+              //  var li = carousel.find("ul").find("li");
+			   var li = carousel.find("ul.carousel").find("li");
                 li.each(function() {
                     if ($(this).find("img").attr("caption")) {
                         var caption_html = $(this).find("img").attr("caption");
@@ -78,30 +101,52 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 				
 				
 				}
-				
-				
-				
-				
-				
-				
-				
+			};
+			
+			// Function to toggle fullscreen
+var toggleFullScreen = function(i) {
 
-				
-				/*
-                else if(options.type=="slide") {
-				var slideleft=100/count;
-				
+  if (i.requestFullscreen) {
+    i.requestFullscreen();
+} else if (i.webkitRequestFullscreen) {
+    i.webkitRequestFullscreen();
+} else if (i.mozRequestFullScreen) {
+    i.mozRequestFullScreen();
+} else if (i.msRequestFullscreen) {
+    i.msRequestFullscreen();
+}
 
-				
-                    li.find(".caption").css({left: 101+"%",fontSize:carousel.width()*options.captionFontRatio + "%"}).show().animate({left: (options.current*slideleft - slideleft) + "%"}, 1500);
-                
-				
-				}else{
-				li.find(".caption").css({left: "101%"}).show().animate({left: "1%"}, 1500);
-				}
-				*/
+carousel.find(".op .fullscreenbutton").addClass("exit_fullscreenbutton");
+			carousel.addClass("fullscreen");
+			carousel.find(".block").remove();
+			ul.find(".tslider").css({maxWidth:"100%"});
+			carousel.find(".thumbnails_wrapper").addClass("fullscreen_thumbnails");
 
-            };
+};
+// End Toggle Full Screen
+			
+var cancelFullScreen = function(){
+if (document.exitFullscreen) {
+   document.exitFullscreen();
+} else if (document.webkitExitFullscreen) {
+   document.webkitExitFullscreen();
+} else if (document.mozCancelFullScreen) {
+   document.mozCancelFullScreen();
+} else if (document.msExitFullscreen) {
+   document.msExitFullscreen();
+}
+
+if(carousel.hasClass("fullscreen")){
+			setWidth();
+			carousel.removeClass("fullscreen");
+			carousel.find(".thumbnails_wrapper").removeClass("fullscreen_thumbnails");
+			carousel.find(".op .fullscreenbutton").removeClass("exit_fullscreenbutton");
+			}
+			
+
+};			
+			
+			
 			/* run any custom effect (css 3)  class  
 			for this function to call user must set options.type='custom' and provide either customaAnimationClassIn or customAnimationClassOut or both
 			*/
@@ -155,53 +200,193 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 
             };
 			
+			var resetzoom=function(){
+			
+				
+			      carousel.find("ul.carousel>li").css({ken:0,
+                '-webkit-transform':'scale(1)',
+                'transform':'scale(1)',
+                '-ms-transform':'scale(1)'});
+									
+			carousel.find("li").stop(true,false);
+				window.clearInterval(autoPlayHandler);
+               ul.stop(true,false);	
+			};
+			
+			
+			var zoomEffect=function(rotate_to){
+						
+		ul.stop();
+		ul.find("> li").show();
+	
+			var li_current = ul.find("li:nth-child(" + rotate_to  + ")");
+		li_current.fadeIn("fast");
+				 
+					  
+					  
+					
+		
+		
+			
+		
+        		var rnd=(Math.random() * 1) + 1;
+				li_current.css({ken:1});
+			
+				li_current.animate({ ken:rnd  }, {
+				start:function(){
+				//animating=true;
+				
+				},
+				
+        step: function(now,fx)
+        {
+            $(this).css({
+                '-webkit-transform':'scale('+now+')',
+                'transform':'scale('+now+')',
+                '-ms-transform':'scale('+now+')'});
+        },duration:options.autoplayInterval/2,
+complete:function() {
+li_current.animate({ ken:1 }, {
+        step: function(now,fx)
+        {
+            $(this).css({
+                '-webkit-transform':'scale('+now+')',
+                'transform':'scale('+now+')',
+                '-ms-transform':'scale('+now+')'});
+        },duration:options.autoplayInterval/3,
+		complete:function(now,fx){
+		 
+		  		li_current.css({ken:0});
+			carousel.find("ul.carousel > li").css({
+                '-webkit-transform':'scale(1)',
+                'transform':'scale(1)',
+                '-ms-transform':'scale(1)'});
+
+		},
+		
+		}
+		
+		);
+
+
+}});
+	 
+
+slideTo(rotate_to);
+			};
+			
+			
+			var animateProgressBar=function(){
+			var progressbar=carousel.find(".progress");
+			   var currentProgress=progressbar.width();
+			   progressbar.stop().animate({width:carousel.width()},options.autoplayInterval,function(){
+			   
+			 resetProgressBar();
+			
+			   }
+			   );
+			};
+			
+			var resetProgressBar=function(){
+			var progressbar=carousel.find(".progress");
+			progressbar.css({width:0});
+			};
+			
+			var stopProgressBar=function(){
+			var progressbar=carousel.find(".progress");
+			progressbar.stop(true,false);
+			};
+			
+			var slideTo=function(scroll_to){
+					
+			 var li = ul.find("li:nth-child(" + (scroll_to) + ")");
+			  if (options.current == scroll_to)
+                    return false;
+					var left = (scroll_to * 100) -100;
+					
+					left = left * -1;
+					 var caption = li.find("img").attr("caption");
+					  $(".caption").hide();//hide all captions
+					  ul.stop(true,true).animate({left: left + "%"}, options.animationInterval); //animate sliding
+					
+			hidenavbuttons();
+                highlightDot();
+				
+			};
+			
+			
 			/* public function can be called from outside */
 			
 			         this.scrollTo = function(start_from) {
+				
+				if(paused==true){return false;}
+				
+					start_from=parseInt(start_from);
+				 	resetProgressBar();
+					resetzoom();
+					;
+			 var li = ul.find("li:nth-child('" + start_from + "')");
+			 	 animateProgressBar();
+			 switch(options.type){
+			 case "slide":
+			slideTo(start_from);
+				break;
+				case "rotate":
+				 rotateTo(start_from);
+				break;
+
+				
+				case "custom":
+				  customEffect(start_from);
+				  break;
+				 
+				  case "zoom":
+				 
+				  zoomEffect(start_from);
+				  break;
+				  default:
+				  rotateTo(start_from);
+				
+			 }
+
 			
-                if (options.type == "slide") {
-					var move_to = start_from;
-                
-            
-                var li = ul.find("li:nth-child(" + move_to + ")");
-                if (options.current == move_to)
-                    return false;
-
-                    var left = (move_to * 100) - 100;
-                    
-                      left = left * -1;
-                    
-                var caption = li.find("img").attr("caption");
-                $(".caption").hide();//hide all captions
-                li.find(".caption").html(caption);
-                ul.animate({left: left + "%"}, options.animationInterval); //animate sliding
-					options.current=move_to;
-                    if (options.current > count) {
-                        options.current = count;
-                    }
-				hidenavbuttons();
-                highlightDot();
-                } else if (options.type == "rotate") {
-                    rotateTo(start_from);
-                } else if(options.type=="custom") {
-                    customEffect(start_from);
-                }else{
-				rotateTo(start_from);
-				}
-
                 setTimeout(function() {
                    showCaption(start_from);
                 }, options.captionAnimationInterval*options.current);
+				
 
+				  options.current=start_from;
+                    if (options.current > count) {
+                        options.current = count;
+                    }
+				
+				navIcons();
+				setStats();
+				//autoscroll			
+				autoPlayHandler = setInterval(autoScroll, options.autoplayInterval); 
+				hide_msg_();
             };
 			
-			/* highlight navigational dot */
-		var highlightDot=function(){
-		slider_nav.find(".nav").removeClass("selected");
-		slider_nav.find(".nav:nth-child("+(options.current+1)+")").addClass("selected");
-              
+			var scrollNext=function(){
+			var moveto=options.current + 1;
+                if (moveto > count) {
+                    moveto = 1;
+                }
+               
+			   
+                 obj.scrollTo(moveto);
+			};
+			var scrollPrev=function(){
+			var moveto=options.current - 1;
+                if (moveto < 1) {
+                    moveto = 1;
+                }
+               
+			   
+                 obj.scrollTo(moveto);
 			};
 			
+	
 
 		var autoScroll=function(){
 		
@@ -209,9 +394,22 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
                 if (moveto > count) {
                     moveto = 1;
                 }
-               
+            
+			 
                  obj.scrollTo(moveto);
+				
             };
+			
+
+			
+									/* highlight navigational dot */
+		var highlightDot=function(){
+		if(options.nav=="dots"){
+		slider_nav.find(".nav").removeClass("selected");
+		slider_nav.find(".nav:nth-child("+(options.current+1)+")").addClass("selected");
+		}
+              
+			};
 			
 			
 			//hide left nav if current slide is 1 and hide right nav if current slide is >=count
@@ -226,29 +424,108 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 				carousel.find(".nav_right").show();
 				};
 		
-/* initialize caraousel */		
-				
-				var init_=function(){
-			
-				
-				
-				carousel.addClass("tiksluscarousel").css({"position": "relative",height:"auto"});
-				//carousel.append("<span class='demo' style='position:absolute;bottom:1%'>Only for Demo</span>");
-				//if user has provided width and height parameter appley it to image and wrapper				
+		var setWidth=function(){
+		//if user has provided width and height parameter appley it to image and wrapper				
 				if(options.width>0 ){ //both parameters should be provided else only width will do the trick
 				carousel.css({"max-width":options.width + "px"});
 					ul.find("img").css({"max-width":options.width + "px",width:"100%",height:"auto"});
 					}
+		};
+		
+		
+		var setStats=function(){
+		carousel.find(".stats").html(options.current + " of " + count);
+		};
+		
+		
+					var thumbnailsScroller = function(elem){
+var wrapper =	elem;
+
+var thumbnails	= wrapper.find('.thumbnails');
+var inactiveMargin = thumbnails.find("li:first").width();
+wrapper.scrollLeft(thumbnails.outerWidth());
+wrapper.bind('mousemove',function(e){
+var wrapperWidth = wrapper.width();
+var menuWidth = thumbnails.outerWidth() + 2 * inactiveMargin;
+var left = (e.pageX - wrapper.offset().left) * (menuWidth - wrapperWidth) / wrapperWidth - inactiveMargin;
+wrapper.scrollLeft(left);
+});
+} ;
+
+
+var navIcons=function(){
+var nav_left=carousel.find(".nav_left");
+var nav_right=carousel.find(".nav_right");
+console.log(options.current);
+if(options.current<=1){ ;nav_left.hide();}else{nav_left.show();}
+if(options.current>=count){nav_right.hide();}else{nav_right.show();}
+if(options.navIcons==true){
+//nav_left.show();nav_right.show();
+nav_right.find("span").hide();
+nav_left.find("span").hide();
+if(!nav_right.hasClass("navIcons")){nav_right.addClass("navIcons");}
+if(!nav_left.hasClass("navIcons")){nav_left.addClass("navIcons");}
+if(options.current<count){
+var tn=parseInt(options.current) + 1;
+if(!nav_right.hasClass("navIcons_next")){nav_right.addClass("navIcons_next");}
+nav_right.html("").append(ul.find("li:nth-child("+(tn) + ")").html());
+nav_right.find("img.tslider").removeClass("tslider");
+}
+if(options.current>1){
+var tp=parseInt(options.current-1);
+if(!nav_left.hasClass("navIcons_prev")){nav_left.addClass("navIcons_prev");}
+nav_left.html("").append(ul.find("li:nth-child("+(tp) + ")").html());
+nav_left.find("img.tslider").removeClass("tslider");
+}
+}
+
+
+
+
+};
+
+//shows a message
+var show_msg_=function(msg,type){
+var m=carousel.find('.msg');
+m.html('');
+switch(type){
+case 'info':
+m.html(msg).removeClass().addClass("msg").addClass('info');
+break;
+case 'error':
+m.html(msg).removeClass().addClass("msg").addClass('error');
+break;
+default:
+m.html(msg).removeclass().addClass("msg").addClass('info');
+
+}
+m.css({top:0}).slideDown("fast");
+
+};
+
+var hide_msg_=function(){
+carousel.find('.msg').hide().css({top:"-100px"});
+};
+
+		
+/* initialize caraousel */		
+				
+				var init_=function(){
+			
+				setWidth();
+				
+				
+				carousel.addClass("tiksluscarousel").css({"position": "relative",height:"auto"});
+				//carousel.append("<span class='demo' style='position:absolute;bottom:1%'>Only for Demo</span>");
+				
+					
 				ul.css({"width": 100 * count + "%", "height": "100%"});
 				ul.find("li").css({"width": 100 / count + "%", "height": "100%"});
   
-
+				carousel.append("<div class='progress'></div>");
 			
-			
-			
+			if(options.nav=="dots"){
 			carousel.append("<div class='slider_nav'><ul></ul></div>");
-            carousel.append("<div class='nav_left'><span>" + options.prev + "</span></div><div class='nav_right'><span>" + options.next + "</span></div>");
-
 			slider_nav=carousel.find(".slider_nav");
 
 				for(var i=0;i<count;i++) //create nav dots
@@ -261,13 +538,25 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 			//position slider nav
             var slider_navigation = carousel.find(".slider_nav");
             slider_navigation.css("right", "1%");
+			}
+			carousel.append("<div class='msg'></div>");
+			 carousel.append("<div class='nav_left'><span>" + options.prev + "</span></div><div class='nav_right'><span>" + options.next + "</span></div>");
+			carousel.append("<div class='op'><div class='stats'></div><ul><li><a href='#' class='fullscreenbutton responsive_img'></a></li><li><a href='#' class='pausebutton responsive_img'></a></li></ul></div>");
 			//position next,prev button to center
-			carousel.find(".nav_left").css({"left":"1%","top":"45%"});
-			carousel.find(".nav_right").css({"right":"1%","top":"45%"});
-			$(".slider_nav").hide();
-			$(".nav_left").hide();
-			$(".nav_right").hide();
-			
+	    
+		//error handling
+		if(options.current>count || options.current<0){options.current=1;current=1;show_msg_("Invalid <b>Current</b> value. Reset to 1","error");}
+		if($.inArray(options.type,arr)<=-1){show_msg_("Invalid <b>type</b> value. Reset to <b>rotate</b>","error");}
+		if($.inArray(options.nav,arr,4)<=-1){show_msg_("Invalid <b>nav</b> value. Must be <b>dots</b> or <b>thumbnails</b>","error");}
+		
+		if(isNaN(options.animationInterval) || options.animationInterval<=0){show_msg_("Invalid <b>animationInterval</b> value. Must be > 0","error");}		
+		if(isNaN(options.dotRatio) || (options.dotRatio<0.01 && options.dotRatio >0.1)){show_msg_("Invalid <b>dotRatio</b> value. Must be > 0.01 and < 0.1","error");}	
+		if(isNaN(options.captionFontRatio) || (options.captionFontRatio<0.1 && options.captionFontRatio >1)){show_msg_("Invalid <b>captionFontRatio</b> value. Must be >= 0.1 and <= 1","error");}	
+		if(isNaN(options.width) || options.width<=0){show_msg_("Invalid <b>width</b> value. Must be >= 0","error");}
+if(isNaN(options.height) || options.height<=0){show_msg_("Invalid <b>height</b> value. Must be > 0","error");}		
+if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=0){show_msg_("Invalid <b>captionAnimationInterval</b> value. Must be > 0","error");}			
+		if(options.autoPlayInterval<=0){show_msg_("Invalid <b>autoPlayInterval</b> value. Must be > 0","error");}	
+		$(".slider_nav").hide();
 							//preload all the images
 
                 ul.find("img").each(function(i) {
@@ -280,22 +569,47 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 
                 });
 				
+
+			
+				
+				
 			carousel.find(".preload").remove();
+				if(options.nav=="thumbnails"){
+				carousel.append("<div class='thumbnails_wrapper'><ul class='thumbnails'></ul></div>");
+			//create thumbs and append them
+			var thumbnails=carousel.find(".thumbnails_wrapper .thumbnails");
+			
+			
+			
+			ul.find("li").each(function(i){
+			
+			 thumb_wt=wrapper_wt/10;
+			 
+			thumbnails.append("<li class='thumb list_"+i+"' num='"+(i+1)+"'><a href='#' class='athumb'>"+$(this).html()+"</a></li>");
+			var lt=carousel.find(".thumbnails .thumb:eq("+i+")");
+			
+			lt.css({width:thumb_wt + "px",display:'block'});
+			lt.find("img").removeClass('tslider').addClass("responsive_img");
+			thumbnails.css({width:count*thumb_wt + thumb_wt+ "px"});
+			});
+			
+			
+			
+			}
+		
+			
 			ul.show();
 			$(".slider_nav").show();
-			$(".nav_left").show();
-			$(".nav_right").show()
-			
-			
-
+	
+	
 			    addCaptions();
                 if (options.current >= 1) {
 				    if (options.type == "slide") {
                         ul.css({left: ((current * 100) - 100) * -1 + "%"}); //start from current li
 
                     } else {
-                        carousel.find("ul").find("li").hide();
-                        carousel.find("ul").find("li:nth-child(" + current + ")").fadeIn("fast");
+                        carousel.find("ul.carousel >li").hide();
+                        carousel.find("ul.carousel >li:nth-child(" + current + ")").fadeIn("fast");
                     }
 
                 }
@@ -303,23 +617,35 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 				highlightDot();
 
                 hidenavbuttons();
-                autoPlayHandler = setInterval(autoScroll, options.autoplayInterval);
+				
+		
                 showCaption(options.current);
-
+				thumbnailsScroller(carousel.find(".thumbnails_wrapper"));
+				navIcons();
+				setStats();
+						
+                autoPlayHandler = setInterval(autoScroll, options.autoplayInterval);
+			animateProgressBar();
 				};
 				
 				//call init_
+				
 				init_();
+	   
 				
 				/* all event based funcitons here */
 				
+		
+				
 				//click event for dots
+				if(options.nav=="dots"){
 				slider_nav.find(".nav").click(function(e) {
                
                 var index = $(this).parent().children().index(this);
                 
                 obj.scrollTo(index);
 				});
+				}
 				
 				/* click event for nav left and nav right arrow buttons */
 				 carousel.find(".nav_left").click(function(e) {
@@ -327,21 +653,29 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 					if(options.current==1){
                     return false;
 					}
+					/*
+					if(animating==true){
+					return false;
+				}*/
+				paused=false;
+				carousel.find(".op .resumebutton").removeClass("resumebutton").addClass("pausebutton");
                 obj.scrollTo(options.current - 1);
-                
 				});
 
 
 				carousel.find(".nav_right").click(function(e){
+				
                 if (options.current == count) {
                     return false;
                 }
-                obj.scrollTo(options.current + 1);
+				paused=false;
+				carousel.find(".op .resumebutton").removeClass("resumebutton").addClass("pausebutton");
+				 obj.scrollTo(parseInt(options.current + 1)) ;
 				});
 				
 				
 				/* slide on image click */
-				carousel.find("img").click(function(e) {
+				carousel.find(".tslider").click(function(e) {
 				var half=carousel.width()/2;
 				if(e.pageX<=half){
 				if(options.current>1){
@@ -354,14 +688,101 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 						}
 					}
 			});
-				
-			/* if user mouse overs image or dots or left and right nav then, stop auto scrolling */
 			
-				carousel.find("img,.nav,.nav_left,.nav_right").mouseover(function(){
-				window.clearInterval(autoPlayHandler);
-				}).mouseout(function(){
-				autoPlayHandler=setInterval(autoScroll,options.autoplayInterval);
-					});
+			carousel.find(".tslider").mouseenter(function(e){
+							
+			carousel.find(".op").fadeIn("fast");
+			
+			
+			if(options.navIcons==true){ //animate navicons 
+			carousel.find(".nav_right").stop().animate({right:0,opacity:1},1000);
+			carousel.find(".nav_left").stop().animate({left:0,opacity:1},1000);
+			}
+			
+			}).mouseleave(function(e){
+		
+			if(e.relatedTarget.tagName=="a" || e.relatedTarget.tagName=="A"){e.preventDefault();}else{
+			carousel.find(".op").fadeOut("fast");}
+			if(options.navIcons==true){
+			carousel.find(".nav_right").stop().animate({right:-20,opacity:0.8},1000);
+			carousel.find(".nav_left").stop().animate({left:-20,opacity:0.8},1000);
+			}
+			
+			});
+			
+			
+			
+			carousel.find(".op  .fullscreenbutton").click(function(e){
+
+			e.preventDefault();
+			var button_=$(this);
+			if(button_.hasClass("fullscreenbutton")){
+			if(carousel.hasClass("fullscreen")){
+			cancelFullScreen();
+			}else{
+			toggleFullScreen(element);
+			} 
+			}//fullscreen
+			});
+			
+			carousel.find(".op .pausebutton, .op .resumebutton").click(function(e){
+			e.preventDefault();
+			var button_=$(this);
+			if(button_.hasClass("pausebutton")){
+			button_.addClass("resumebutton").removeClass("pausebutton");
+			paused=true;
+			stopProgressBar();
+			window.clearInterval(autoPlayHandler);
+			show_msg_("Paused","info");
+			return ;
+			}
+			if(button_.hasClass("resumebutton")){
+			autoPlayHandler=setInterval(autoScroll,options.autoplayInterval);
+				animateProgressBar();
+				paused=false;
+				hide_msg_();
+				button_.addClass("pausebutton").removeClass("resumebutton");
+				return;
+		}
+			
+			});
+			
+			
+			
+			
+			
+				
+				carousel.find(".thumbnails li a").click(function(e){
+				e.preventDefault();
+				var num=parseInt($(this).closest("li.thumb").attr("num"));		
+				paused=false;
+				carousel.find(".op .resumebutton").removeClass("resumebutton").addClass("pausebutton");
+				obj.scrollTo(num);
+				
+				});
+	
+								
+
+
+function FullscrenONOFF()
+{
+    var checkFullscreen = ((typeof document.webkitIsFullScreen) !== 'undefined') ? document.webkitIsFullScreen : document.mozFullScreen;
+    if (!checkFullscreen) 
+        {//fullscreen is inactive
+		 if(carousel.hasClass("fullscreen")){
+			setWidth();
+			carousel.removeClass("fullscreen");
+			carousel.find(".thumbnails_wrapper").removeClass("fullscreen_thumbnails");
+			carousel.find(".op .fullscreenbutton").removeClass("exit_fullscreenbutton");
+			}             
+        } 
+   else {
+           // code if fullscreen is active do nothing
+        }
+
+};
+		
+					
 			
 			/* if user resizes window try to resize navigation dots,navs and captions(font size) in order to make them responsive */
 			
@@ -369,8 +790,13 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 
 			carousel.find(".caption").css({fontSize:carousel.width()*options.captionFontRatio + "%"}); 
 			carousel.find(".slider_nav .nav").css({width:  carousel.width()*options.dotRatio + "px", height: carousel.width()*options.dotRatio + "px"});
+			//if carousel is in full screen mode and user press escape key (on pressing escape key window resizes)
+	
+			FullscrenONOFF();
 			});
+			
 
+	 
 
 	   
 	 };
@@ -390,5 +816,6 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
            // Store plugin object in this element's data
            element.data('tiksluscaraousel', tiksluscaraousel);
        });
+	  
    };
 })(jQuery);	 

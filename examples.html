@@ -27,10 +27,36 @@ color: cornflowerblue;
 a:hover{
 text-decoration:underline;
 }
+#fruits{
+border:10px solid #000;
+}
 </style>
 </head>
 <body>
 <div id="wrapper">
+
+		<div id="fruits">
+			<ul>
+		<li><img src="images/fruits1.jpg" caption="The Walt Disney Cartoon Picture Birds With Flying Elephant and enjoy the flying" /></li>
+		<li><img src="images/fruits2.jpg" /></li>
+		<li><img src="images/fruits3.jpg" /></li>
+		<li><img src="images/fruits4.jpg" /></li>
+		<li><img src="images/fruits5.jpg" /></li>
+		<li><img src="images/fruits6.jpg" caption="The Walt Disney Cartoon Picture Birds With Flying Elephant and enjoy the flying" /></li>
+		<li><img src="images/fruits7.jpg" /></li>
+		<li><img src="images/fruits8.jpg" /></li>
+		
+		</ul>
+		</div>
+		<script language="javascript">
+		$(document).ready(function(){
+		$("#fruits").tiksluscarousel({width:640,height:480,nav:'thumbnails',current:1,type:'zoom'});
+		});
+		</script>
+		
+
+
+
 <h4 class="heading">Example 1 - custom width and height</h4>
 		<p>HTML</p>
 			<PRE>
@@ -69,12 +95,30 @@ text-decoration:underline;
 		<li><img src="images/disney4.jpg" /></li>
 		<li><img src="images/disney5.jpg" /></li>
 		<li><img src="images/disney6.jpg" /></li>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
+		<li><img src="images/disney1.jpg" /></li>
+		<li><img src="images/disney2.jpg" /></li>
+		<li><img src="images/disney3.jpg" /></li>
+		<li><img src="images/disney4.jpg" /></li>
+		<li><img src="images/disney5.jpg" /></li>
+		<li><img src="images/disney6.jpg" /></li>
 		</ul>
 		</div>
 		
 		<script language="javascript">
 		$(document).ready(function(){
-		$("#carousel1").tiksluscarousel({width:640,height:480});
+		$("#carousel1").tiksluscarousel({width:640,height:480,nav:'thumbnails',type:"slide"});
 		});
 		</script>
 
@@ -325,7 +369,7 @@ text-decoration:underline;
 		
 		<script language="javascript">
 		$(document).ready(function(){
-		$("#carousel6").tiksluscarousel();
+		$("#carousel6").tiksluscarousel({nav:'thumbnails'});
 		});
 		</script>
 		

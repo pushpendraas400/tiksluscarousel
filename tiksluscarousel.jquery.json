@@ -1,8 +1,8 @@
 {
   "name": "tiksluscarousel",
-  "title": "Tikslus Carousel fully responsive carousel",
-  "version": "1.0.0",
-  "description": "A fully responsive jquery carsousel and rotater with css3 animations.",
+  "title": "Jquery fully responsive Carousel/slider with thumbnails,progress bar,Navigation icons,pause/resume and full screen support",
+  "version": "2.0.0",
+  "description": "A fully responsive jquery carsousel and rotater with css3 animations,thumbnails,Nav Icons,Progress bar and Pause/resume support.",
   "homepage": "http://tikslus.com/plugins/free#tiksluscarousel",
   "repository": {
     "type": "git",
@@ -19,7 +19,13 @@
 	"animation",
     "image",
 	"rotater",
-    "banner"
+    "banner",
+	"thumbnails",
+	"progress bar",
+	"resume",
+	"pause",
+	"navigation",
+	"icons"
   ],
   "author": {
     "name": "Pushpendra Singh Chouhan",
