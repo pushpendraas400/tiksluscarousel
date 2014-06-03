@@ -551,8 +551,8 @@ carousel.find('.msg').hide().css({top:"-100px"});
 		if(isNaN(options.animationInterval) || options.animationInterval<=0){show_msg_("Invalid <b>animationInterval</b> value. Must be > 0","error");}		
 		if(isNaN(options.dotRatio) || (options.dotRatio<0.01 && options.dotRatio >0.1)){show_msg_("Invalid <b>dotRatio</b> value. Must be > 0.01 and < 0.1","error");}	
 		if(isNaN(options.captionFontRatio) || (options.captionFontRatio<0.1 && options.captionFontRatio >1)){show_msg_("Invalid <b>captionFontRatio</b> value. Must be >= 0.1 and <= 1","error");}	
-		if(isNaN(options.width) || options.width<=0){show_msg_("Invalid <b>width</b> value. Must be >= 0","error");}
-if(isNaN(options.height) || options.height<=0){show_msg_("Invalid <b>height</b> value. Must be > 0","error");}		
+		if(isNaN(options.width) || options.width<0){show_msg_("Invalid <b>width</b> value. Must be >= 0","error");}
+if(isNaN(options.height) || options.height<0){show_msg_("Invalid <b>height</b> value. Must be > 0","error");}		
 if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=0){show_msg_("Invalid <b>captionAnimationInterval</b> value. Must be > 0","error");}			
 		if(options.autoPlayInterval<=0){show_msg_("Invalid <b>autoPlayInterval</b> value. Must be > 0","error");}	
 		$(".slider_nav").hide();
