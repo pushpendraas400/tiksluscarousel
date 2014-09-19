@@ -1,5 +1,5 @@
 /* tikslus carousel (a fully resposive carousel) by Pushpendra Singh Chouhan : pushpendra.as400@gmail.com
-version: 2.0.0 
+version: 2.0.2
 version 2 release date: 3 june 2014
 http://tikslus.com
 New Features in version 2.0
@@ -81,7 +81,7 @@ carousel.find(".preload").css({position:'absolute',top:"48%",left:"35%",backgrou
 			
 			    var showCaption = function(n) {
 			
-                var li = carousel.find("li:nth-child(" + n + ")");
+                var li = carousel.find("li").eq(n);
                 var caption = li.find(".caption");
 				var slideleft=100/count;
                 if (caption.hasClass("animated")) {
@@ -156,8 +156,8 @@ if(carousel.hasClass("fullscreen")){
 			if (options.customAnimationClassIn != '' || options.customAnimationClassOut != '') {
 			
 			 
-                var li_current = ul.find("li:nth-child(" + options.current + ")");
-				  var li_to = ul.find("li:nth-child(" + start_from + ")");
+                var li_current = ul.find("li").eq(options.current);
+				  var li_to = ul.find("li").eq(start_from);
 				  li_to.css({left: 0, display: 'block'});
                     li_current.removeClass().addClass("animated").addClass(options.customAnimationClassOut);
 				  
@@ -185,9 +185,9 @@ if(carousel.hasClass("fullscreen")){
 			
 			    var rotateTo = function(rotate_to) {
                 
-				var li_current = ul.find("li:nth-child(" + options.current + ")");
+				var li_current = ul.find("li").eq(options.current);
                 //var li_current = ul.find("li:eq(" + (options.current - 1) + ")");
-                var li_to = ul.find("li:nth-child(" + rotate_to + ")");
+                var li_to = ul.find("li").eq(rotate_to);
 				li_current.fadeOut("fast");
                 li_to.fadeIn("slow");
 				
@@ -219,7 +219,7 @@ if(carousel.hasClass("fullscreen")){
 		ul.stop();
 		ul.find("> li").show();
 	
-			var li_current = ul.find("li:nth-child(" + rotate_to  + ")");
+			var li_current = ul.find("li").eq(rotate_to);
 		li_current.fadeIn("fast");
 				 
 					  
@@ -299,7 +299,7 @@ slideTo(rotate_to);
 			
 			var slideTo=function(scroll_to){
 					
-			 var li = ul.find("li:nth-child(" + (scroll_to) + ")");
+			 var li = ul.find("li").eq(scroll_to);
 			  if (options.current == scroll_to)
                     return false;
 					var left = (scroll_to * 100) -100;
@@ -325,7 +325,7 @@ slideTo(rotate_to);
 				 	resetProgressBar();
 					resetzoom();
 					;
-			 var li = ul.find("li:nth-child('" + start_from + "')");
+			 var li = ul.find("li").eq(start_from);
 			 	 animateProgressBar();
 			 switch(options.type){
 			 case "slide":
@@ -406,7 +406,7 @@ slideTo(rotate_to);
 		var highlightDot=function(){
 		if(options.nav=="dots"){
 		slider_nav.find(".nav").removeClass("selected");
-		slider_nav.find(".nav:nth-child("+(options.current+1)+")").addClass("selected");
+		slider_nav.find(".nav").eq(options.current+1).addClass("selected");
 		}
               
 			};
@@ -467,13 +467,13 @@ if(!nav_left.hasClass("navIcons")){nav_left.addClass("navIcons");}
 if(options.current<count){
 var tn=parseInt(options.current) + 1;
 if(!nav_right.hasClass("navIcons_next")){nav_right.addClass("navIcons_next");}
-nav_right.html("").append(ul.find("li:nth-child("+(tn) + ")").html());
+nav_right.html("").append(ul.find("li").eq(tn).html());
 nav_right.find("img.tslider").removeClass("tslider");
 }
 if(options.current>1){
 var tp=parseInt(options.current-1);
 if(!nav_left.hasClass("navIcons_prev")){nav_left.addClass("navIcons_prev");}
-nav_left.html("").append(ul.find("li:nth-child("+(tp) + ")").html());
+nav_left.html("").append(ul.find("li").eq(tp).html());
 nav_left.find("img.tslider").removeClass("tslider");
 }
 }
@@ -608,7 +608,7 @@ if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=
 
                     } else {
                         carousel.find("ul.carousel >li").hide();
-                        carousel.find("ul.carousel >li:nth-child(" + current + ")").fadeIn("fast");
+                        carousel.find("ul.carousel >li").eq(current).fadeIn("fast");
                     }
 
                 }
