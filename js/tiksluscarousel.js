@@ -465,13 +465,13 @@ nav_left.find("span").hide();
 if(!nav_right.hasClass("navIcons")){nav_right.addClass("navIcons");}
 if(!nav_left.hasClass("navIcons")){nav_left.addClass("navIcons");}
 if(options.current<count){
-var tn=parseInt(options.current) + 1;
+var tn=parseInt(options.current);
 if(!nav_right.hasClass("navIcons_next")){nav_right.addClass("navIcons_next");}
 nav_right.html("").append(ul.find("li").eq(tn).html());
 nav_right.find("img.tslider").removeClass("tslider");
 }
 if(options.current>1){
-var tp=parseInt(options.current-1);
+var tp=parseInt(options.current - 2);
 if(!nav_left.hasClass("navIcons_prev")){nav_left.addClass("navIcons_prev");}
 nav_left.html("").append(ul.find("li").eq(tp).html());
 nav_left.find("img.tslider").removeClass("tslider");
