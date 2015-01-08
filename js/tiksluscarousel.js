@@ -546,7 +546,7 @@ carousel.find('.msg').hide().css({top:"-100px"});
 		//error handling
 		if(options.current>count || options.current<0){options.current=1;current=1;show_msg_("Invalid <b>Current</b> value. Reset to 1","error");}
 		if($.inArray(options.type,arr)<=-1){show_msg_("Invalid <b>type</b> value. Reset to <b>rotate</b>","error");}
-		if($.inArray(options.nav,arr,4)<=-1){show_msg_("Invalid <b>nav</b> value. Must be <b>dots</b> or <b>thumbnails</b>","error");}
+		if($.inArray(options.nav,arr,3)<=-1){show_msg_("Invalid <b>nav</b> value. Must be <b>dots</b> or <b>thumbnails</b>","error");}
 		
 		if(isNaN(options.animationInterval) || options.animationInterval<=0){show_msg_("Invalid <b>animationInterval</b> value. Must be > 0","error");}		
 		if(isNaN(options.dotRatio) || (options.dotRatio<0.01 && options.dotRatio >0.1)){show_msg_("Invalid <b>dotRatio</b> value. Must be > 0.01 and < 0.1","error");}	
