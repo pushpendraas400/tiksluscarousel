@@ -177,7 +177,7 @@ if(carousel.hasClass("fullscreen")){
                     options.current = 1;
                 }
                 hidenavbuttons();
-                highlightDot();
+                highlightDot(start_from);
 			};
 			
 			/* this function is called if options.type='rotate'
@@ -196,7 +196,7 @@ if(carousel.hasClass("fullscreen")){
                     options.current = 1;
                 }
                 hidenavbuttons();
-                highlightDot();
+                highlightDot(rotate_to);
 
             };
 			
@@ -310,7 +310,7 @@ slideTo(rotate_to);
 					  ul.stop(true,true).animate({left: left + "%"}, options.animationInterval); //animate sliding
 					
 			hidenavbuttons();
-                highlightDot();
+                highlightDot(scroll_to);
 				
 			};
 			
@@ -403,10 +403,10 @@ slideTo(rotate_to);
 
 			
 									/* highlight navigational dot */
-		var highlightDot=function(){
+		var highlightDot=function(scroll_to){
 		if(options.nav=="dots"){
 		slider_nav.find(".nav").removeClass("selected");
-		slider_nav.find(".nav").eq(options.current+1).addClass("selected");
+		slider_nav.find(".nav").eq(scroll_to - 1).addClass("selected");
 		}
               
 			};
@@ -613,7 +613,7 @@ if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=
 
                 }
 
-				highlightDot();
+				highlightDot(options.current);
 
                 hidenavbuttons();
 				
