@@ -177,7 +177,7 @@ if(carousel.hasClass("fullscreen")){
                     options.current = 1;
                 }
                 hidenavbuttons();
-                highlightDot();
+                highlightDot(start_from);
 			};
 			
 			/* this function is called if options.type='rotate'
@@ -196,7 +196,7 @@ if(carousel.hasClass("fullscreen")){
                     options.current = 1;
                 }
                 hidenavbuttons();
-                highlightDot();
+                highlightDot(rotate_to);
 
             };
 			
@@ -310,7 +310,7 @@ slideTo(rotate_to);
 					  ul.stop(true,true).animate({left: left + "%"}, options.animationInterval); //animate sliding
 					
 			hidenavbuttons();
-                highlightDot();
+                highlightDot(scroll_to);
 				
 			};
 			
@@ -403,10 +403,10 @@ slideTo(rotate_to);
 
 			
 									/* highlight navigational dot */
-		var highlightDot=function(){
+		var highlightDot=function(scroll_to){
 		if(options.nav=="dots"){
 		slider_nav.find(".nav").removeClass("selected");
-		slider_nav.find(".nav").eq(options.current+1).addClass("selected");
+		slider_nav.find(".nav").eq(scroll_to - 1).addClass("selected");
 		}
               
 			};
@@ -465,13 +465,13 @@ nav_left.find("span").hide();
 if(!nav_right.hasClass("navIcons")){nav_right.addClass("navIcons");}
 if(!nav_left.hasClass("navIcons")){nav_left.addClass("navIcons");}
 if(options.current<count){
-var tn=parseInt(options.current) + 1;
+var tn=parseInt(options.current);
 if(!nav_right.hasClass("navIcons_next")){nav_right.addClass("navIcons_next");}
 nav_right.html("").append(ul.find("li").eq(tn).html());
 nav_right.find("img.tslider").removeClass("tslider");
 }
 if(options.current>1){
-var tp=parseInt(options.current-1);
+var tp=parseInt(options.current - 2);
 if(!nav_left.hasClass("navIcons_prev")){nav_left.addClass("navIcons_prev");}
 nav_left.html("").append(ul.find("li").eq(tp).html());
 nav_left.find("img.tslider").removeClass("tslider");
@@ -546,7 +546,7 @@ carousel.find('.msg').hide().css({top:"-100px"});
 		//error handling
 		if(options.current>count || options.current<0){options.current=1;current=1;show_msg_("Invalid <b>Current</b> value. Reset to 1","error");}
 		if($.inArray(options.type,arr)<=-1){show_msg_("Invalid <b>type</b> value. Reset to <b>rotate</b>","error");}
-		if($.inArray(options.nav,arr,4)<=-1){show_msg_("Invalid <b>nav</b> value. Must be <b>dots</b> or <b>thumbnails</b>","error");}
+		if($.inArray(options.nav,arr,3)<=-1){show_msg_("Invalid <b>nav</b> value. Must be <b>dots</b> or <b>thumbnails</b>","error");}
 		
 		if(isNaN(options.animationInterval) || options.animationInterval<=0){show_msg_("Invalid <b>animationInterval</b> value. Must be > 0","error");}		
 		if(isNaN(options.dotRatio) || (options.dotRatio<0.01 && options.dotRatio >0.1)){show_msg_("Invalid <b>dotRatio</b> value. Must be > 0.01 and < 0.1","error");}	
@@ -613,7 +613,7 @@ if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=
 
                 }
 
-				highlightDot();
+				highlightDot(options.current);
 
                 hidenavbuttons();
 				
