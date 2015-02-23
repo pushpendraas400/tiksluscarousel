@@ -26,3 +26,8 @@ You can use Plugins folder directly in your projects.
 
 Visit http://tikslus.com/tiksluscarousel/demo for demo
 visit http://tikslus.com/tiksluscarousel/docs for plugin documentation
+
+
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pushpendra10/tiksluscarousel/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
