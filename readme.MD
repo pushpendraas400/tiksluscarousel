@@ -10,7 +10,7 @@ Can be used with Jquery Mobile plugin
 
 
 
-New in version 2.0.0 
+New in version 2.1.2 
 ============================
 
 1. Pause/resume support.
