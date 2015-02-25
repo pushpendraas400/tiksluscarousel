@@ -10,6 +10,10 @@ New Features in version 2.0
 5. Added a  progress bar 
 6. Added button to pause and resume slideshow (button gets visible on hover)
 7. Shows current slide number (visible on hover)
+version 2.1.2
+new options added
+ProgressBar: set true or false to enable or disable progress bar
+autoPlay: set true or false to enable or disable auto sliding
 */
 (function($){
    var TikslusCaraousel = function(element, options)
@@ -26,6 +30,7 @@ New Features in version 2.0
                 next: "&raquo;",
                   type: 'slide', // can rotate,slide and zoom (zoom is new in version 2.0)
                 autoplayInterval: 10000,
+				
                 animationInterval: 800,
                 dotRatio: 0.02, //always in percentage a whole number 2% by default
                 loader:'ajax-loader.gif',
@@ -36,8 +41,11 @@ New Features in version 2.0
 				captionFontRatio:0.15,//always in percentage a whole number 15% by default
 				width:0,
 				height:0,
+				
 				nav:'dots', //can be dots or thumbnails (thumbnails new in version 2.0)
-				navIcons:true // new in version 2.0
+				navIcons:true, // new in version 2.0
+				ProgressBar:true, //new in 2.1
+				autoPlay:true,//new in 2.1
 							
             };
            
@@ -277,6 +285,7 @@ slideTo(rotate_to);
 			
 			
 			var animateProgressBar=function(){
+			if(options.progressBar===true){
 			var progressbar=carousel.find(".progress");
 			   var currentProgress=progressbar.width();
 			   progressbar.stop().animate({width:carousel.width()},options.autoplayInterval,function(){
@@ -285,16 +294,21 @@ slideTo(rotate_to);
 			
 			   }
 			   );
+			   }
 			};
 			
 			var resetProgressBar=function(){
+			if(options.progressBar===true){
 			var progressbar=carousel.find(".progress");
 			progressbar.css({width:0});
+			}
 			};
 			
 			var stopProgressBar=function(){
+			if(options.progressBar===true){
 			var progressbar=carousel.find(".progress");
 			progressbar.stop(true,false);
+			}
 			};
 			
 			var slideTo=function(scroll_to){
@@ -362,9 +376,11 @@ slideTo(rotate_to);
 				
 				navIcons();
 				setStats();
-				//autoscroll			
+				//autoscroll	
+					if(options.autoPlay===true){
 				autoPlayHandler = setInterval(autoScroll, options.autoplayInterval); 
-				hide_msg_();
+				
+				}hide_msg_();
             };
 			
 			var scrollNext=function(){
@@ -622,8 +638,9 @@ if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=
 				thumbnailsScroller(carousel.find(".thumbnails_wrapper"));
 				navIcons();
 				setStats();
-						
+						if(options.autoPlay===true){
                 autoPlayHandler = setInterval(autoScroll, options.autoplayInterval);
+				}
 			animateProgressBar();
 				};
 				
@@ -736,7 +753,9 @@ if(isNaN(options.captionAnimationInterval) || options.captionAnimationInterval<=
 			return ;
 			}
 			if(button_.hasClass("resumebutton")){
+			if(options.autoPlay===true){
 			autoPlayHandler=setInterval(autoScroll,options.autoplayInterval);
+			}
 				animateProgressBar();
 				paused=false;
 				hide_msg_();
