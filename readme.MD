@@ -21,9 +21,6 @@ New in version 2.0.0
 6. Displays Number of current Slide playing.
 
 
-We have put all the plugins files in Plugins folder.
-You can use Plugins folder directly in your projects.
-
 Visit http://tikslus.com/tiksluscarousel/demo for demo
 visit http://tikslus.com/tiksluscarousel/docs for plugin documentation
 
